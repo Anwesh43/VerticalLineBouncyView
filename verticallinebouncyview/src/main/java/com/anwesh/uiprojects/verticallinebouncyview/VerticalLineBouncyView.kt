@@ -184,4 +184,26 @@ class VerticalLineBouncyView(ctx : Context) : View(ctx) {
             curr.startUpdating(cb)
         }
     }
+
+    data class Renderer(var view : VerticalLineBouncyView) {
+
+        private val animator : Animator = Animator(view)
+        private val vbl : VerticalBouncyLine = VerticalBouncyLine(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            vbl.draw(canvas, paint)
+            animator.animate {
+                vbl.update {
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            vbl.startUpdating {
+                animator.start()
+            }
+        }
+    }
 }

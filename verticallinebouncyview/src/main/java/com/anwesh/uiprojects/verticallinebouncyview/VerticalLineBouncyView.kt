@@ -73,7 +73,7 @@ class VerticalLineBouncyView(ctx : Context) : View(ctx) {
         return true
     }
 
-    data class State(var scale : Float = 0, var dir : Float = 0f, var prevScale : Float = 0f) {
+    data class State(var scale : Float = 0f, var dir : Float = 0f, var prevScale : Float = 0f) {
 
         fun update(cb : (Float) -> Unit) {
             scale += scGap * dir
@@ -205,6 +205,15 @@ class VerticalLineBouncyView(ctx : Context) : View(ctx) {
             vbl.startUpdating {
                 animator.start()
             }
+        }
+    }
+
+    companion object {
+
+        fun create(activity : Activity) : VerticalLineBouncyView {
+            val view : VerticalLineBouncyView = VerticalLineBouncyView(activity)
+            activity.setContentView(view)
+            return view
         }
     }
 }
